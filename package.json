@@ -1,0 +1,27 @@
+{
+  "name": "casparcg-vt-overlay",
+  "version": "1.0.0",
+  "description": "Simple burnt in timecode overlay for CasparCG",
+  "homepage": "https://github.com/orryverducci/casparcg-vt-overlay",
+  "bugs": {
+    "url": "https://github.com/orryverducci/casparcg-vt-overlay/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orryverducci/casparcg-vt-overlay.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Orry Verducci",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "node-osc": "^11.4.0",
+    "pretty-js-log": "^1.2.0",
+    "ws": "^8.20.0"
+  }
+}

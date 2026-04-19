@@ -1,0 +1,24 @@
+body {
+    align-items: flex-start;
+    box-sizing: border-box;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    font: 8vmin monospace;
+    height: 100vh;
+    justify-content: space-between;
+    margin: 0;
+    padding: 5vh 5vw;
+}
+
+p {
+    background: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    padding: 0.5em 1em;
+}
+
+#timecodes {
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+}
