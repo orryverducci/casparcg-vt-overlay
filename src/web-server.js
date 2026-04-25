@@ -4,23 +4,23 @@ import Config from './config.js';
 import Logger from './logger.js';
 
 export default class WebServer {
-    _server;
-    _websocket;
+    #server;
+    #websocket;
 
     constructor() {
-        this._server = express();
-        this._server.set('view engine', 'ejs');
-        this._server.use(express.static('public'));
+        this.#server = express();
+        this.#server.set('view engine', 'ejs');
+        this.#server.use(express.static('public'));
 
-        this._ws = new WebSocketServer({
-            server: this._server
+        this.#websocket = new WebSocketServer({
+            server: this.#server
         });
 
-        this._server.listen(Config.webServerPort, () => {
+        this.#server.listen(Config.webServerPort, () => {
             Logger.info(`Web server running on port ${Config.webServerPort}`);
         });
 
-        this._server.get('/', this.#index.bind(this));
+        this.#server.get('/', this.#index.bind(this));
     }
 
     #index(req, res) {
