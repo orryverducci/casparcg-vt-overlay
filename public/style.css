@@ -3,7 +3,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 500;
-    src: url(/font/google-sans-code-latin-500-normal.woff2) format('woff2'), url(/font/google-sans-code-latin-500-normal.woff) format('woff');
+    src: url(/assets/google-sans-code-latin-500-normal.woff2) format('woff2'), url(/assets/google-sans-code-latin-500-normal.woff) format('woff');
 }
 
 body {

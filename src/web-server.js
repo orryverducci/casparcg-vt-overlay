@@ -20,8 +20,8 @@ export default class WebServer {
             Logger.info(`Web server running on port ${Config.webServerPort}`);
         });
 
-        this.#server.use(express.static('public'));
-        this.#server.use('/font', express.static(path.join('node_modules', '@fontsource', 'google-sans-code', 'files')));
+        this.#server.use('/assets', express.static('public'));
+        this.#server.use('/assets', express.static(path.join('node_modules', '@fontsource', 'google-sans-code', 'files')));
 
         this.#server.get('/:channel', this.#status.bind(this));
     }
