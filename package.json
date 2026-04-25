@@ -18,6 +18,7 @@
     "start": "node ."
   },
   "dependencies": {
+    "@fontsource/google-sans-code": "^5.2.4",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
     "node-osc": "^11.4.0",
