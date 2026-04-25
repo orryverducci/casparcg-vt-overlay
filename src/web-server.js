@@ -1,29 +1,31 @@
 import path from 'node:path';
+import { createServer } from 'node:http';
 import express from 'express';
-import { WebSocketServer } from 'ws';
+import { Server } from 'socket.io';
 import Config from './config.js';
 import Logger from './logger.js';
 
 export default class WebServer {
+    #app;
     #server;
     #websocket;
 
     constructor() {
-        this.#server = express();
-        this.#server.set('view engine', 'ejs');
+        this.#app = express();
+        this.#app.set('view engine', 'ejs');
 
-        this.#websocket = new WebSocketServer({
-            server: this.#server
-        });
+        this.#server = createServer(this.#app);
+        this.#websocket = new Server(this.#server);
 
         this.#server.listen(Config.webServerPort, () => {
             Logger.info(`Web server running on port ${Config.webServerPort}`);
         });
 
-        this.#server.use('/assets', express.static('public'));
-        this.#server.use('/assets', express.static(path.join('node_modules', '@fontsource', 'google-sans-code', 'files')));
+        this.#app.use('/assets', express.static('public'));
+        this.#app.use('/assets', express.static(path.join('node_modules', '@fontsource', 'google-sans-code', 'files')));
+        this.#app.use('/assets', express.static(path.join('node_modules', 'socket.io', 'client-dist')));
 
-        this.#server.get('/:channel', this.#status.bind(this));
+        this.#app.get('/:channel', this.#status.bind(this));
     }
 
     #status(req, res) {
