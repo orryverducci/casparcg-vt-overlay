@@ -39,7 +39,8 @@ export default class WebServer {
         }
 
         res.render('index', {
-            name: channel.name
+            name: channel.name,
+            channelID: req.params.channel
         });
     }
 }
