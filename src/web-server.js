@@ -20,12 +20,21 @@ export default class WebServer {
             Logger.info(`Web server running on port ${Config.webServerPort}`);
         });
 
-        this.#server.get('/', this.#index.bind(this));
+        this.#server.get('/:channel', this.#status.bind(this));
     }
 
-    #index(req, res) {
+    #status(req, res) {
+        Logger.debug(`Status page requested for channel ${req.params.channel}`);
+
+        const channel = Config.channels[req.params.channel - 1];
+
+        if (typeof channel === 'undefined') {
+            res.status(404).send('Channel not found');
+            return;
+        }
+
         res.render('index', {
-            name: 'A'
+            name: channel.name
         });
     }
 }
