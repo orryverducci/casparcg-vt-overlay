@@ -2,7 +2,7 @@ import { Server } from 'node-osc';
 import Config from './config.js';
 import Logger from './logger.js';
 
-export class CasparOsc {
+export default class CasparOsc {
     _server;
 
     constructor(config) {

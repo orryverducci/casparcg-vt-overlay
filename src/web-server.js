@@ -3,7 +3,7 @@ import { WebSocketServer } from 'ws';
 import Config from './config.js';
 import Logger from './logger.js';
 
-export class WebServer {
+export default class WebServer {
     _server;
     _websocket;
 
