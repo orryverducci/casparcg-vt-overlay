@@ -38,7 +38,7 @@ export default class WebServer {
             return;
         }
 
-        res.render('index', {
+        res.render('status', {
             name: channel.name,
             channelID: req.params.channel
         });
