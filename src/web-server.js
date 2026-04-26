@@ -10,7 +10,7 @@ export default class WebServer {
     #server;
     #websocket;
 
-    constructor() {
+    constructor(casparOsc) {
         this.#app = express();
         this.#app.set('view engine', 'ejs');
 
@@ -26,6 +26,10 @@ export default class WebServer {
         this.#app.use('/assets', express.static(path.join('node_modules', 'socket.io', 'client-dist')));
 
         this.#app.get('/:channel', this.#status.bind(this));
+
+        casparOsc.channelStatuses.forEach((status, channel) => {
+            status.eventEmitter.on('update', this.#sendStatusUpdate.bind(this, channel));
+        });
     }
 
     #status(req, res) {
@@ -42,5 +46,10 @@ export default class WebServer {
             name: channel.name,
             channelID: req.params.channel
         });
+    }
+
+    #sendStatusUpdate(channel, status) {
+        this.#websocket.to(channel).emit('current-time', status.currentTime);
+        this.#websocket.to(channel).emit('remaining-time', status.remainingTime);
     }
 }

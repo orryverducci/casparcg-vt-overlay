@@ -8,4 +8,4 @@ import WebServer from './web-server.js';
 const casparOsc = new CasparOsc();
 
 // Start web server
-const webServer = new WebServer();
+const webServer = new WebServer(casparOsc);
