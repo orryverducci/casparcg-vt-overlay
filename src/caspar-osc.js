@@ -33,7 +33,7 @@ export default class CasparOsc {
     processMessage(msg) {
         Logger.debug(`OSC message received: ${msg}`);
 
-        // CasparCG sends time information on addresses in the format: /channel/1/stage/layer/1/file/time
+        // CasparCG sends time information on addresses in the format: /channel/1/stage/layer/1/foreground/file/time
         let address = msg.address.split('/');
         let addressChannelIndex = address.findIndex('channel');
         let addressLayerIndex = address.findIndex('layer');
