@@ -26,7 +26,7 @@ export default class CasparOsc {
         Logger.debug('OSC bundle received');
 
         bundle.elements.forEach((msg) => {
-            this.processMessage(msg).bind(this);
+            this.processMessage(msg);
         });
     }
 
