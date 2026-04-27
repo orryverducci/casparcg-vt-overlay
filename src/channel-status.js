@@ -16,6 +16,12 @@ export default class ChannelStatus {
         this.recalculateTime();
     }
 
+    updateFrameRate(numerator, denominator) {
+        this.#frameRate = numerator / denominator;
+
+        this.recalculateTime();
+    }
+
     recalculateTime() {
         this.currentTime = this.framesToTimecode(this.#currentFrame);
         this.remainingTime = this.framesToTimecode(this.#totalFrames - this.#currentFrame);
