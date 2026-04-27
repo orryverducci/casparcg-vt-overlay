@@ -23,16 +23,12 @@ export default class CasparOsc {
     }
 
     processBundle(bundle) {
-        Logger.debug('OSC bundle received');
-
         bundle.elements.forEach((msg) => {
             this.processMessage(msg);
         });
     }
 
     processMessage(msg) {
-        Logger.debug(`OSC message received: ${msg}`);
-
         // CasparCG sends time information on addresses in the format: /channel/1/stage/layer/1/foreground/file/time
         let address = msg[0].split('/');
         let addressChannelIndex = address.findIndex((e) => e === 'channel');
