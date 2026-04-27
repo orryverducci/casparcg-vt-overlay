@@ -5,35 +5,38 @@ export default class ChannelStatus {
     eventEmitter = new EventEmitter();
     remainingTime = '00:00:00:00';
 
-    #currentFrame = 0;
+    #currentSeconds = 0;
     #frameRate = 0;
-    #totalFrames = 0;
+    #totalSeconds = 0;
 
-    updateTime(currentFrame, totalFrames) {
-        this.#currentFrame = currentFrame
-        this.#totalFrames = totalFrames;
+    updateTime(currentSeconds, totalSeconds) {
+        this.#currentSeconds = currentSeconds;
+        this.#totalSeconds = totalSeconds;
 
         this.recalculateTime();
     }
 
     updateFrameRate(numerator, denominator) {
-        this.#frameRate = numerator / denominator;
+        const frameRate = denominator === 0 ? 0 : numerator / denominator;
 
-        this.recalculateTime();
+        if (frameRate != this.#frameRate) {
+            this.#frameRate = frameRate;
+            this.recalculateTime();
+        }
     }
 
     recalculateTime() {
-        this.currentTime = this.framesToTimecode(this.#currentFrame);
-        this.remainingTime = this.framesToTimecode(this.#totalFrames - this.#currentFrame);
+        this.currentTime = this.secondsToTimecode(this.#currentSeconds / this.#frameRate);
+        this.remainingTime = this.secondsToTimecode((this.#totalSeconds - this.#currentSeconds) / this.#frameRate);
 
         this.eventEmitter.emit('update', this);
     }
 
-    framesToTimecode(frames) {
-        const hours = Math.floor(frames / (3600 * this.#frameRate));
-        const minutes = Math.floor((frames % (3600 * this.#frameRate)) / (60 * this.#frameRate));
-        const seconds = Math.floor((frames % (60 * this.#frameRate)) / this.#frameRate);
-        const frame = frames % this.#frameRate;
+    secondsToTimecode(totalSeconds) {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = Math.floor(totalSeconds % 60);
+        const frame = Math.floor((totalSeconds % 1) * this.#frameRate);
 
         return `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}:${this.pad(frame)}`;
     }
