@@ -14,7 +14,9 @@ export default class CasparOsc {
             this.channelStatuses.set(`${channel.channel}-${channel.layer}`, new ChannelStatus());
         });
 
-        this.#server = new Server(Config.oscPort, '0.0.0.0');
+        this.#server = new Server(Config.oscPort, '0.0.0.0', () => {
+            Logger.info(`CasparCG OSC server listening on port ${Config.oscPort}`);
+        });
 
         this.#server.on('message', this.processMessage.bind(this));
         this.#server.on('bundle', this.processBundle.bind(this));
