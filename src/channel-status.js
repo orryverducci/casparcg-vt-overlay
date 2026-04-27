@@ -26,8 +26,8 @@ export default class ChannelStatus {
     }
 
     recalculateTime() {
-        this.currentTime = this.secondsToTimecode(this.#currentSeconds / this.#frameRate);
-        this.remainingTime = this.secondsToTimecode((this.#totalSeconds - this.#currentSeconds) / this.#frameRate);
+        this.currentTime = this.secondsToTimecode(this.#currentSeconds);
+        this.remainingTime = this.secondsToTimecode((this.#totalSeconds - this.#currentSeconds));
 
         this.eventEmitter.emit('update', this);
     }
