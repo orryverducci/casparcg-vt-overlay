@@ -27,8 +27,10 @@ export default class WebServer {
 
         this.#app.get('/:channel', this.#status.bind(this));
 
+        this.#websocket.on("connection", this.#connectionHandler.bind(this));
+
         casparOsc.channelStatuses.forEach((status, channel) => {
-            status.eventEmitter.on('update', this.#sendStatusUpdate.bind(this, channel));
+            status.eventEmitter.on('update', this.#sendStatusUpdate.bind(this, channel, status));
         });
     }
 
@@ -49,7 +51,19 @@ export default class WebServer {
 
         res.render('status', {
             name: channel.name,
-            channelID: req.params.channel
+            channel: `${channel.channel}-${channel.layer}`
+        });
+    }
+
+    #connectionHandler(socket) {
+        socket.on('subscribe', (topic) => {
+            Logger.debug(`Joining topic: ${topic}`);
+            socket.join(topic);
+        });
+
+        socket.on('unsubscribe', (topic) => {
+            Logger.debug(`Leaving topic: ${topic}`);
+            socket.leave(topic);
         });
     }
 
