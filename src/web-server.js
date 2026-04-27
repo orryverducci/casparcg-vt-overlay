@@ -32,7 +32,12 @@ export default class WebServer {
         });
     }
 
-    #status(req, res) {
+    #status(req, res, next) {
+        if (!/^\d+$/.test(req.params.channel)) {
+            next();
+            return;
+        }
+
         Logger.debug(`Status page requested for channel ${req.params.channel}`);
 
         const channel = Config.channels[req.params.channel - 1];
