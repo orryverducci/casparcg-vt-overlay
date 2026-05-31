@@ -14,7 +14,7 @@ class Config {
         Logger.info(`Loading config from ${configFile}`);
 
         if (!fs.existsSync(configFile)) {
-            Logger.error(`Config file not found - using default config`);
+            Logger.warn(`Config file not found - using default config`);
             return;
         }
 
