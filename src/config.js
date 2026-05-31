@@ -9,7 +9,7 @@ class Config {
     webServerPort = 3000;
 
     constructor() {
-        let configFile = path.resolve(path.join('.', 'config', 'config.yaml'));
+        let configFile = path.join(import.meta.dirname, '..', 'config', 'config.yaml');
 
         Logger.info(`Loading config from ${configFile}`);
 
