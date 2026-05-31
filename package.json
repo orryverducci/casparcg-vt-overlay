@@ -21,7 +21,7 @@
     "@fontsource/google-sans-code": "^5.2.4",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
-    "node-osc": "^11.4.0",
+    "osc": "^2.4.5",
     "pretty-js-log": "^1.2.0",
     "socket.io": "^4.8.3",
     "yaml": "^2.8.3"

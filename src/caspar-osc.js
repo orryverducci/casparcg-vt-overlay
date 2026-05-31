@@ -1,4 +1,4 @@
-import { Server } from 'node-osc';
+import osc from 'osc';
 import ChannelStatus from './channel-status.js';
 import Config from './config.js';
 import Logger from './logger.js';
@@ -14,23 +14,28 @@ export default class CasparOsc {
             this.channelStatuses.set(`${channel.channel}-${channel.layer}`, new ChannelStatus());
         });
 
-        this.#server = new Server(Config.oscPort, '0.0.0.0', () => {
-            Logger.info(`CasparCG OSC server listening on port ${Config.oscPort}`);
+        this.#server = new osc.UDPPort({
+            localAddress: "0.0.0.0",
+            localPort: Config.oscPort,
+            metadata: true
         });
+        this.#server.open();
+
+        Logger.info(`CasparCG OSC server listening on port ${Config.oscPort}`);
 
         this.#server.on('message', this.processMessage.bind(this));
         this.#server.on('bundle', this.processBundle.bind(this));
     }
 
-    processBundle(bundle) {
-        bundle.elements.forEach((msg) => {
-            this.processMessage(msg);
+    processBundle(bundle, timeTag, info) {
+        bundle.packets.forEach((msg) => {
+            this.processMessage(msg, timeTag, info);
         });
     }
 
-    processMessage(msg) {
+    processMessage(msg, timeTag, info) {
         // CasparCG sends time information on addresses in the format: /channel/1/stage/layer/1/foreground/file/time
-        let address = msg[0].split('/');
+        let address = msg.address.split('/');
         let addressChannelIndex = address.findIndex((e) => e === 'channel');
         let addressLayerIndex = address.findIndex((e) => e === 'layer');
 
@@ -42,9 +47,9 @@ export default class CasparOsc {
         }
 
         if (address[address.length - 2] === 'file' && address[address.length - 1] === 'time') {
-            this.channelStatuses.get(`${channel}-${layer}`).updateTime(msg[1], msg[2]);
+            this.channelStatuses.get(`${channel}-${layer}`).updateTime(msg.args[0].value, msg.args[1].value);
         } else if (address[address.length - 3] === 'streams' && address[address.length - 2] === '0' && address[address.length - 1] === 'fps') {
-            this.channelStatuses.get(`${channel}-${layer}`).updateFrameRate(msg[1], msg[2]);
+            this.channelStatuses.get(`${channel}-${layer}`).updateFrameRate(msg.args[0].value, msg.args[1].value);
         }
     }
 }
