@@ -12,6 +12,7 @@ export default class WebServer {
 
     constructor(casparOsc) {
         this.#app = express();
+        this.#app.set('views', path.join(import.meta.dirname, '..', 'views'));
         this.#app.set('view engine', 'ejs');
 
         this.#server = createServer(this.#app);
@@ -21,7 +22,7 @@ export default class WebServer {
             Logger.info(`Web server running on port ${Config.webServerPort}`);
         });
 
-        this.#app.use('/assets', express.static('public'));
+        this.#app.use('/assets', express.static(path.join(import.meta.dirname, '..', 'public')));
         this.#app.use('/assets', express.static(path.join('node_modules', '@fontsource', 'google-sans-code', 'files')));
         this.#app.use('/assets', express.static(path.join('node_modules', 'socket.io', 'client-dist')));
 
