@@ -22,6 +22,7 @@ export default class WebServer {
             Logger.info(`Web server running on port ${Config.webServerPort}`);
         });
 
+        this.#app.use('/favicon.ico', express.static(path.join(import.meta.dirname, '..', 'public', 'favicon.ico')));
         this.#app.use('/assets', express.static(path.join(import.meta.dirname, '..', 'public')));
         this.#app.use('/assets', express.static(path.join(import.meta.dirname, '..', 'node_modules', '@fontsource', 'google-sans-code', 'files')));
         this.#app.use('/assets', express.static(path.join(import.meta.dirname, '..', 'node_modules', 'socket.io', 'client-dist')));
