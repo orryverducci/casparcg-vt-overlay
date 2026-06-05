@@ -23,8 +23,8 @@ export default class WebServer {
         });
 
         this.#app.use('/assets', express.static(path.join(import.meta.dirname, '..', 'public')));
-        this.#app.use('/assets', express.static(path.join('node_modules', '@fontsource', 'google-sans-code', 'files')));
-        this.#app.use('/assets', express.static(path.join('node_modules', 'socket.io', 'client-dist')));
+        this.#app.use('/assets', express.static(path.join(import.meta.dirname, '..', 'node_modules', '@fontsource', 'google-sans-code', 'files')));
+        this.#app.use('/assets', express.static(path.join(import.meta.dirname, '..', 'node_modules', 'socket.io', 'client-dist')));
 
         this.#app.get('/:channel', this.#status.bind(this));
 
