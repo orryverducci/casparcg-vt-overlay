@@ -12,17 +12,17 @@ body {
     color: #fff;
     display: flex;
     flex-direction: column;
-    font: 500 8vmin 'Google Sans Code', monospace;
+    font: 500 7.5vmin 'Google Sans Code', monospace;
     height: 100vh;
     justify-content: space-between;
     margin: 0;
-    padding: 5vh 5vw;
+    padding: 4vh 4vw;
 }
 
 p {
     background: rgba(0, 0, 0, 0.5);
     margin: 0;
-    padding: 0.3em 1em;
+    padding: 0.2em 0.7em;
 }
 
 #timecodes {
