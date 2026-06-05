@@ -23,6 +23,8 @@ p {
     background: rgba(0, 0, 0, 0.5);
     margin: 0;
     padding: 0.2em 0.7em;
+    paint-order: stroke fill;
+    -webkit-text-stroke: 0.05em #000;
 }
 
 #timecodes {
