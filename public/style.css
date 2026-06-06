@@ -27,8 +27,16 @@ p {
     -webkit-text-stroke: 0.05em #000;
 }
 
-#timecodes {
+p:empty {
+    display: none;
+}
+
+.info {
     align-self: stretch;
+}
+
+.row {
     display: flex;
     justify-content: space-between;
+    margin-top: 0.4em;
 }

@@ -72,5 +72,6 @@ export default class WebServer {
     #sendStatusUpdate(channel, status) {
         this.#websocket.to(channel).emit('current-time', status.currentTime);
         this.#websocket.to(channel).emit('remaining-time', status.remainingTime);
+        this.#websocket.to(channel).emit('name', status.name);
     }
 }

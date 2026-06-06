@@ -50,6 +50,8 @@ export default class CasparOsc {
             this.channelStatuses.get(`${channel}-${layer}`).updateTime(msg.args[0].value, msg.args[1].value);
         } else if (address[address.length - 3] === 'streams' && address[address.length - 2] === '0' && address[address.length - 1] === 'fps') {
             this.channelStatuses.get(`${channel}-${layer}`).updateFrameRate(msg.args[0].value, msg.args[1].value);
+        } else if (address[address.length - 2] === 'file' && address[address.length - 1] === 'name') {
+            this.channelStatuses.get(`${channel}-${layer}`).updateName(msg.args[0].value);
         }
     }
 }

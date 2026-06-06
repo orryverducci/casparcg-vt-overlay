@@ -5,9 +5,14 @@
     </head>
     <body data-channel="<%= channel %>">
         <p><%= name %></p>
-        <div id="timecodes">
-            <p id="current-time">00:00:00:00</p>
-            <p id="remaining-time">00:00:00:00</p>
+        <div class="info">
+            <div class="row">
+                <p id="name"></p>
+            </div>
+            <div class="row">
+                <p id="current-time">00:00:00:00</p>
+                <p id="remaining-time">00:00:00:00</p>
+            </div>
         </div>
         <script src="/assets/socket.io.min.js"></script>
         <script src="/assets/app.js"></script>

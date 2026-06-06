@@ -4,10 +4,12 @@ export default class ChannelStatus {
     currentTime = '00:00:00:00';
     eventEmitter = new EventEmitter();
     remainingTime = '00:00:00:00';
+    name = '';
 
     #currentSeconds = 0;
     #frameRate = 0;
     #totalSeconds = 0;
+    
 
     updateTime(currentSeconds, totalSeconds) {
         this.#currentSeconds = currentSeconds;
@@ -23,6 +25,11 @@ export default class ChannelStatus {
             this.#frameRate = frameRate;
             this.recalculateTime();
         }
+    }
+
+    updateName(name) {
+        this.name = name;
+        this.eventEmitter.emit('update', this);
     }
 
     recalculateTime() {

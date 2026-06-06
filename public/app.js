@@ -12,6 +12,10 @@ function updateRemainingTime(remainingTime) {
     document.getElementById('remaining-time').textContent = remainingTime;
 }
 
+function updateName(name) {
+    document.getElementById('name').textContent = name;
+}
+
 window.addEventListener('DOMContentLoaded',function () {
     channel = document.querySelector('body').dataset.channel;
     socket = io();
@@ -19,4 +23,5 @@ window.addEventListener('DOMContentLoaded',function () {
     socket.on('connect', onConnect);
     socket.on('current-time', updateCurrentTime);
     socket.on('remaining-time', updateRemainingTime);
+    socket.on('name', updateName);
 });
