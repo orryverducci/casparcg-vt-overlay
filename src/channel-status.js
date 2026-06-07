@@ -7,7 +7,8 @@ export default class ChannelStatus {
     name = '';
 
     #currentSeconds = 0;
-    #frameRate = 0;
+    #frameRateDenominator = 0;
+    #frameRateNumerator = 0;
     #totalSeconds = 0;
     
 
@@ -23,12 +24,14 @@ export default class ChannelStatus {
     }
 
     updateFrameRate(numerator, denominator) {
-        const frameRate = denominator === 0 ? 0 : numerator / denominator;
-
-        if (frameRate != this.#frameRate) {
-            this.#frameRate = frameRate;
-            this.recalculateTime();
+        if (numerator == this.#frameRateNumerator && denominator == this.#frameRateDenominator) {
+            return;
         }
+
+        this.#frameRateNumerator = numerator;
+        this.#frameRateDenominator = denominator;
+
+        this.recalculateTime();
     }
 
     updateName(name) {
@@ -47,7 +50,7 @@ export default class ChannelStatus {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = Math.floor(totalSeconds % 60);
-        const frame = Math.floor((totalSeconds % 1) * this.#frameRate);
+        const frame = Math.floor((totalSeconds % 1) * (this.#frameRateNumerator / this.#frameRateDenominator));
 
         return `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}:${this.pad(frame)}`;
     }
