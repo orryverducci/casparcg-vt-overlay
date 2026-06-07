@@ -21,10 +21,13 @@ export default class CasparOsc {
         });
         this.#server.open();
 
-        Logger.info(`CasparCG OSC server listening on port ${Config.oscPort}`);
-
+        this.#server.on('ready', this.serverReady.bind(this));
         this.#server.on('message', this.processMessage.bind(this));
         this.#server.on('bundle', this.processBundle.bind(this));
+    }
+
+    serverReady() {
+        Logger.info(`CasparCG OSC server listening on port ${Config.oscPort}`);
     }
 
     processBundle(bundle, timeTag, info) {
