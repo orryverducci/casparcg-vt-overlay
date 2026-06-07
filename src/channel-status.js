@@ -12,6 +12,10 @@ export default class ChannelStatus {
     
 
     updateTime(currentSeconds, totalSeconds) {
+        if (currentSeconds == this.#currentSeconds && totalSeconds == this.#totalSeconds) {
+            return;
+        }
+
         this.#currentSeconds = currentSeconds;
         this.#totalSeconds = totalSeconds;
 
