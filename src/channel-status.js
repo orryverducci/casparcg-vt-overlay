@@ -36,14 +36,14 @@ export default class ChannelStatus {
 
     updateName(name) {
         this.name = name;
-        this.eventEmitter.emit('update', this);
+        this.eventEmitter.emit('name-update');
     }
 
     recalculateTime() {
         this.currentTime = this.secondsToTimecode(this.#currentSeconds);
         this.remainingTime = this.secondsToTimecode((this.#totalSeconds - this.#currentSeconds));
 
-        this.eventEmitter.emit('update', this);
+        this.eventEmitter.emit('time-update');
     }
 
     secondsToTimecode(totalSeconds) {

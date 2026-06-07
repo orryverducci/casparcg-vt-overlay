@@ -32,7 +32,8 @@ export default class WebServer {
         this.#websocket.on("connection", this.#connectionHandler.bind(this));
 
         casparOsc.channelStatuses.forEach((status, channel) => {
-            status.eventEmitter.on('update', this.#sendStatusUpdate.bind(this, channel, status));
+            status.eventEmitter.on('time-update', this.#sendTimeUpdate.bind(this, channel, status));
+            status.eventEmitter.on('name-update', this.#sendNameUpdate.bind(this, channel, status));
         });
     }
 
@@ -69,9 +70,12 @@ export default class WebServer {
         });
     }
 
-    #sendStatusUpdate(channel, status) {
+    #sendTimeUpdate(channel, status) {
         this.#websocket.to(channel).emit('current-time', status.currentTime);
         this.#websocket.to(channel).emit('remaining-time', status.remainingTime);
+    }
+
+    #sendNameUpdate(channel, status) {
         this.#websocket.to(channel).emit('name', status.name);
     }
 }
