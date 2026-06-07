@@ -9,7 +9,7 @@ export default class CasparOsc {
     #channels;
     #server;
 
-    constructor(config) {
+    constructor() {
         Config.channels.forEach((channel) => {
             this.channelStatuses.set(`${channel.channel}-${channel.layer}`, new ChannelStatus());
         });
